@@ -181,9 +181,9 @@ export function Features() {
             }
           >
             At Spruntler, we believe in value-driven partnerships that transcend
-            transactional relationships. We're not just another service provider
-            – we're your marketing muse, a dedicated team invested in your
-            brand's success. Here's what sets us apart:
+            transactional relationships. We&aposre not just another service provider
+            – we&aposre your marketing muse, a dedicated team invested in your
+            brand&aposs success. Here's what sets us apart:
           </p>
 
           <div className={"mt-10 grid lg:grid-cols-3 gap-3"}>

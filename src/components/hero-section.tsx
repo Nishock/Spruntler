@@ -110,7 +110,7 @@ export function HeroSection() {
               "text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center"
             }
           >
-            Spruntler isn't your average marketing agency. We're a passionate
+            Spruntler isn't your average marketing agency. We&apos re a passionate
             crew of strategic thinkers and storytellers who craft innovative
             marketing solutions that make your brand roar.
           </p>

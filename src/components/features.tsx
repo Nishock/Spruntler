@@ -6,6 +6,7 @@ import {
   DotLottieCommonPlayer,
   DotLottiePlayer,
 } from "@dotlottie/react-player";
+import Image from "next/image";
 import ProductImage from "@/assets/product-image.png";
 import {
   animate,
@@ -16,6 +17,7 @@ import {
 } from "framer-motion";
 import { ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 
+// Define tabs data
 const tabs = [
   {
     icon: "/assets/lottie/vroom.lottie",
@@ -43,6 +45,7 @@ const tabs = [
   },
 ];
 
+// FeatureTab component
 const FeatureTab = (
   props: (typeof tabs)[number] & ComponentPropsWithoutRef<"div"> & { selected: boolean }
 ) => {
@@ -54,12 +57,21 @@ const FeatureTab = (
 
   const maskImage = useMotionTemplate`radial-gradient(80px 80px at ${xPercentage}% ${yPercentage}%, black, transparent)`;
 
+  // Handle tab hover animation
+  const handleTabHover = () => {
+    if (dotLottieRef.current) {
+      dotLottieRef.current.seek(0);
+      dotLottieRef.current.play();
+    }
+  };
+
+  // Handle tab selection animation
   useEffect(() => {
     if (!tabRef.current || !props.selected) return;
 
     xPercentage.set(0);
     yPercentage.set(0);
-    const { height, width } = tabRef.current?.getBoundingClientRect();
+    const { height, width } = tabRef.current.getBoundingClientRect();
     const circumference = height * 2 + width * 2;
     const times = [
       0,
@@ -79,51 +91,33 @@ const FeatureTab = (
 
     animate(xPercentage, [0, 100, 100, 0, 0], options);
     animate(yPercentage, [0, 0, 100, 100, 0], options);
-  }, [props.selected, xPercentage, yPercentage]);  // ✅ Missing dependencies added
-
-  const handleTabHover = () => {
-    if (dotLottieRef.current === null) return;
-    dotLottieRef.current.seek(0);
-    dotLottieRef.current.play();
-  };
+  }, [props.selected, xPercentage, yPercentage]); // ✅ Added xPercentage and yPercentage as dependencies
 
   return (
     <div
       onMouseEnter={handleTabHover}
-      className={
-        "border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30"
-      }
+      className="border border-muted flex items-center p-2.5 gap-2.5 rounded-xl relative cursor-pointer hover:bg-muted/30 transition duration-300"
       ref={tabRef}
       onClick={props.onClick}
     >
       {props.selected && (
         <motion.div
           style={{ maskImage }}
-          className={
-            "absolute inset-0 -m-px border border-[#A369FF] rounded-xl"
-          }
+          className="absolute inset-0 -m-px border border-[#A369FF] rounded-xl"
         />
       )}
 
-      <div
-        className={
-          "size-12 border border-muted rounded-lg inline-flex items-center justify-center"
-        }
-      >
+      <div className="size-12 border border-muted rounded-lg inline-flex items-center justify-center">
         <DotLottiePlayer
           src={props.icon}
-          className={"size-5"}
+          className="size-5"
           autoplay
           ref={dotLottieRef}
         />
       </div>
-      <div className={"font-medium"}>{props.title}</div>
+      <div className="font-medium">{props.title}</div>
       {props.isNew && (
-        <div
-          className={
-            "text-xs rounded-full text-white px-2 py-0.5 bg-[#8c44ff] font-semibold"
-          }
-        >
+        <div className="text-xs rounded-full text-white px-2 py-0.5 bg-[#8c44ff] font-semibold">
           New
         </div>
       )}
@@ -131,6 +125,7 @@ const FeatureTab = (
   );
 };
 
+// Features component
 export function Features() {
   const [selectedTab, setSelectedTab] = useState(0);
 
@@ -145,7 +140,7 @@ export function Features() {
     setSelectedTab(index);
 
     const animateOptions: ValueAnimationTransition = {
-      duration: 2,
+      duration: 1.5,
       ease: "easeInOut",
     };
     animate(
@@ -166,27 +161,19 @@ export function Features() {
   };
 
   return (
-    <section className={"py-20 md:py-24"}>
-      <div className={"container"}>
-        <h2
-          className={
-            "text-5xl md:text-6xl font-medium text-center tracking-tighter"
-          }
-        >
+    <section className="py-20 md:py-24">
+      <div className="container">
+        <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
           Where Opportunity Meets Value.
         </h2>
-        <p
-          className={
-            "text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"
-          }
-        >
+        <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
           At Spruntler, we believe in value-driven partnerships that transcend
           transactional relationships. We&apos;re not just another service provider
           – we&apos;re your marketing muse, a dedicated team invested in your
           brand&apos;s success. Here&apos;s what sets us apart:
         </p>
 
-        <div className={"mt-10 grid lg:grid-cols-3 gap-3"}>
+        <div className="mt-10 grid lg:grid-cols-3 gap-3">
           {tabs.map((tab, index) => (
             <FeatureTab
               {...tab}
@@ -196,13 +183,14 @@ export function Features() {
             />
           ))}
         </div>
-        <motion.div className={"border border-muted rounded-xl p-2.5 mt-3"}>
+        <motion.div className="border border-muted rounded-xl p-2.5 mt-3">
           <div
-            className={"aspect-video bg-cover border border-muted rounded-lg"}
+            className="aspect-video bg-cover border border-muted rounded-lg"
             style={{
               backgroundPosition: backgroundPosition.get(),
               backgroundSize: backgroundSize.get(),
               backgroundImage: `url(${ProductImage.src})`,
+              transition: "background-position 1.5s ease-in-out, background-size 1.5s ease-in-out",
             }}
           ></div>
         </motion.div>

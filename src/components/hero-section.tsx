@@ -35,13 +35,13 @@ export function HeroSection() {
       >
         <div
           className={
-            "absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(140,69,255,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"
+            "absolute inset-0 bg-[radial-gradient(75%_75%_at_center_center,rgb(77, 64, 239,0.5)_15%,rgb(14,0,36,0.5)_78%,transparent)]"
           }
         />
         {/* Planet Logic */}
         <div
           className={
-            "absolute size-64 md:size-96 bg-purple-500 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgb(184,148,255)_37.7%,rgb(24,0,66))] shadow-[-20px_-20px_50px_rgb(255,255,255,0.5),-20px_-20px_80px_rgb(255,255,255,0.1),0_0_50px_rgb(140,69,255)]"
+            "absolute size-64 md:size-96 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgba(77,64,239,0.8)_37.7%,rgba(77,64,239,0.9))] shadow-[0_0_50px_rgba(77,64,239,0.8),-20px_-20px_50px_rgba(255,255,255,0.5),-20px_-20px_80px_rgba(255,255,255,0.1)] bg-[rgb(77,64,239)]"
           }
         />
         {/* Rings + Mini planets Logic */}
@@ -102,19 +102,19 @@ export function HeroSection() {
         <div className={"container relative mt-16"}>
           <h1
             className={
-              "text-8xl md:text-[168px] md:leading-none font-semibold bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(74,32,138,0.5))] bg-clip-text text-transparent text-center"
+              "text-xl md:text-[68px] md:leading-none font-semibold bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgba(77,64,239,0.5))] bg-clip-text text-transparent text-center"
             }
           >
-            Spruntler
+            Where Opportunity Meets Value.
           </h1>
           <p
             className={
               "text-lg md:text-xl max-w-xl mx-auto text-white/70 mt-5 text-center"
             }
           >
-            Spruntler isn't your average marketing agency. We&apos re a passionate
-            crew of strategic thinkers and storytellers who craft innovative
-            marketing solutions that make your brand roar.
+            Spruntler isn&apos;t your average marketing agency. We&apos;re a
+            passionate crew of strategic thinkers and storytellers who craft
+            innovative marketing solutions that make your brand roar.
           </p>
           <div className={"flex justify-center mt-5"}>
             <ActionButton label={"Contact Us"} />

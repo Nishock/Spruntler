@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 
-
 "use client";
 
 import {
@@ -45,8 +44,7 @@ const tabs = [
 ];
 
 const FeatureTab = (
-  props: (typeof tabs)[number] &
-    ComponentPropsWithoutRef<"div"> & { selected: boolean }
+  props: (typeof tabs)[number] & ComponentPropsWithoutRef<"div"> & { selected: boolean }
 ) => {
   const tabRef = useRef<HTMLDivElement>(null);
   const dotLottieRef = useRef<DotLottieCommonPlayer>(null);
@@ -81,7 +79,7 @@ const FeatureTab = (
 
     animate(xPercentage, [0, 100, 100, 0, 0], options);
     animate(yPercentage, [0, 0, 100, 100, 0], options);
-  }, [props.selected]);
+  }, [props.selected, xPercentage, yPercentage]);  // ✅ Missing dependencies added
 
   const handleTabHover = () => {
     if (dotLottieRef.current === null) return;
@@ -168,49 +166,47 @@ export function Features() {
   };
 
   return (
-    <>
-      <section className={"py-20 md:py-24"}>
-        <div className={"container"}>
-          <h2
-            className={
-              "text-5xl md:text-6xl font-medium text-center tracking-tighter"
-            }
-          >
-            Where Opportunity Meets Value.
-          </h2>
-          <p
-            className={
-              "text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"
-            }
-          >
-            At Spruntler, we believe in value-driven partnerships that transcend
-            transactional relationships. We&aposre not just another service provider
-            – we&aposre your marketing muse, a dedicated team invested in your
-            brand&aposs success. Here's what sets us apart:
-          </p>
+    <section className={"py-20 md:py-24"}>
+      <div className={"container"}>
+        <h2
+          className={
+            "text-5xl md:text-6xl font-medium text-center tracking-tighter"
+          }
+        >
+          Where Opportunity Meets Value.
+        </h2>
+        <p
+          className={
+            "text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5"
+          }
+        >
+          At Spruntler, we believe in value-driven partnerships that transcend
+          transactional relationships. We&apos;re not just another service provider
+          – we&apos;re your marketing muse, a dedicated team invested in your
+          brand&apos;s success. Here&apos;s what sets us apart:
+        </p>
 
-          <div className={"mt-10 grid lg:grid-cols-3 gap-3"}>
-            {tabs.map((tab, index) => (
-              <FeatureTab
-                {...tab}
-                key={tab.title}
-                onClick={() => handleSelectTab(index)}
-                selected={selectedTab === index}
-              />
-            ))}
-          </div>
-          <motion.div className={"border border-muted rounded-xl p-2.5 mt-3"}>
-            <div
-              className={"aspect-video bg-cover border border-muted rounded-lg"}
-              style={{
-                backgroundPosition: backgroundPosition.get(),
-                backgroundSize: backgroundSize.get(),
-                backgroundImage: `url(${ProductImage.src})`,
-              }}
-            ></div>
-          </motion.div>
+        <div className={"mt-10 grid lg:grid-cols-3 gap-3"}>
+          {tabs.map((tab, index) => (
+            <FeatureTab
+              {...tab}
+              key={tab.title}
+              onClick={() => handleSelectTab(index)}
+              selected={selectedTab === index}
+            />
+          ))}
         </div>
-      </section>
-    </>
+        <motion.div className={"border border-muted rounded-xl p-2.5 mt-3"}>
+          <div
+            className={"aspect-video bg-cover border border-muted rounded-lg"}
+            style={{
+              backgroundPosition: backgroundPosition.get(),
+              backgroundSize: backgroundSize.get(),
+              backgroundImage: `url(${ProductImage.src})`,
+            }}
+          ></div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

@@ -50,7 +50,7 @@ export function CallToAction() {
                             style={{backgroundImage: `url(${BackgroundGrid.src})`, maskImage: maskImage}} ref={borderedDivRef}/>
                         <div className={"relative"}>
                             <h2 className={"text-5xl tracking-tighter text-center font-medium"}>
-                            Let's get to work
+                            Let&aposs get to work
                             </h2>
                             <p className={"text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5"}>
                                 Achieve clear, impactful results without the complexity.

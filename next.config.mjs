@@ -1,31 +1,51 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+
+    experimental: {
+        appDir: true,
+    },
+
     webpack(config) {
-        // Grab the existing rule that handles SVG imports
-        const fileLoaderRule = config.module.rules.find((rule) =>
-            rule.test?.test?.(".svg")
+        // SVG Loader Configuration
+        const fileLoaderRule = config.module.rules.find(
+            (rule) => rule.test && rule.test instanceof RegExp && rule.test.test(".svg")
         );
 
+        if (fileLoaderRule) {
+            fileLoaderRule.exclude = /\.svg$/i;
+        }
+
         config.module.rules.push(
-            // Reapply the existing rule, but only for svg imports ending in ?url
             {
-                ...fileLoaderRule,
                 test: /\.svg$/i,
-                resourceQuery: /url/, // *.svg?url
+                resourceQuery: /url/,
+                type: "asset/resource", // Updated for improved compatibility
             },
-            // Convert all other *.svg imports to React components
             {
                 test: /\.svg$/i,
-                issuer: fileLoaderRule.issuer,
-                resourceQuery: { not: [...fileLoaderRule.resourceQuery.not, /url/] }, // exclude if *.svg?url
+                issuer: /\.[jt]sx?$/,
+                resourceQuery: { not: [/url/] },
                 use: ["@svgr/webpack"],
             }
         );
 
-        // Modify the file loader rule to ignore *.svg, since we have it handled now.
-        fileLoaderRule.exclude = /\.svg$/i;
-
         return config;
+    },
+
+    images: {
+        domains: ["images.pexels.com"],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'cdn.easyfrontend.com', // Added domain for external images
+            },
+        ],
+    },
+
+    env: {
+        MONGO_URI: "mongodb://localhost:27017",
     },
 };
 

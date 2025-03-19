@@ -1,8 +1,9 @@
-export function ActionButton({ label }: { label: string }) {
+export function ActionButton({ label, onClick }: { label: string; onClick?: () => void }) {
   return (
     <button
+      onClick={onClick}
       className={
-        "relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#190d2e] to-[#1e00ff] shadow-[0px_0px_12px_rgb(77, 64, 239)]"
+        "relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#190d2e] to-[#1e00ff] shadow-[0px_0px_12px_rgb(77,64,239)]"
       }
     >
       <div className={"absolute inset-0 rounded-lg"}>
@@ -18,7 +19,7 @@ export function ActionButton({ label }: { label: string }) {
         />
         <div
           className={
-            "absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(77, 64, 239)_inset]"
+            "absolute inset-0 rounded-lg shadow-[0_0_10px_rgb(77,64,239)_inset]"
           }
         />
       </div>

@@ -1,31 +1,35 @@
-"use client";  // 👈 Yeh zaroor hona chahiye
+"use client";
 
 import SiteHeader from "@/components/site-header";
-import { HeroSection } from "@/components/hero-section";
+import HeroSection from "@/components/hero-section";
 import { LogoTicker } from "@/components/logo-ticker";
 import SiteFooter from "@/components/site-footer";
 import { CallToAction } from "@/components/call-to-action";
-import  AboutUs  from "@/components/aboutUs";
-import { Features } from "@/components/features";
-import { Testimonials } from "@/components/testimonials";  // 
-import { GithubIndicator } from "@/components/github-indicator";
-import { Element, scroller } from "react-scroll";  // 👈 Import for scrolling
+import  Market  from "@/components/MarketingThatWorks";
+import  ClientSuccess  from "@/components/ClientSuccess";
+
+// import AboutUs from "@/components/aboutUs";
+// import Master from "@/components/Master";
+// import { Features } from "@/components/features";
+import SplashCursor from './SplashCursor'
+import { Testimonials } from "@/components/testimonials";
+// import { GithubIndicator } from "@/components/github-indicator";
 
 export default function Home() {
     return (
         <>
-            <SiteHeader onBlogClick={() => scroller.scrollTo("testimonials-section", { smooth: true, duration: 800 })} />
+            {/* <SplashCursor />         */}
+            <SiteHeader />
             <HeroSection />
             <LogoTicker />
-            <AboutUs />
-            <Features />
-
-            <Element name="testimonials-section">  
-                <Testimonials />
-            </Element>
-
+            <Market />
+            <ClientSuccess />
+            {/* <AboutUs /> */}
+            {/* <Master /> */}
+            {/* <Features /> */}
+            <Testimonials />
             <CallToAction />
-            <GithubIndicator />
+            {/* <GithubIndicator /> */}
             <SiteFooter />
         </>
     );

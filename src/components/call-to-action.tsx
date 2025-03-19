@@ -116,7 +116,7 @@ export function CallToAction() {
           <div className="bg-black/80 backdrop-blur-sm text-white border-2 border-white/20 p-12 max-w-2xl rounded-xl">
             <div className="text-center pb-6">
               <h3 className="text-4xl font-bold mb-4">Contact Us</h3>
-              <p className="text-lg text-white/80">We'd love to hear from you.</p>
+              <p className="text-lg text-white/80">We&apos; d love to hear from you.</p>
             </div>
 
             <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit} noValidate>
@@ -201,9 +201,9 @@ export function CallToAction() {
           />
 
           <div className="relative">
-            <h2 className="text-5xl tracking-tighter text-center font-medium">Let's get to work</h2>
+            <h2 className="text-5xl tracking-tighter text-center font-medium">Let&apos; s get to work</h2>
             <p className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-              Achieve clear, impactful results without the complexity.
+              Achieve clear impactful results without the complexity.
             </p>
             <div className="flex justify-center mt-8">
               <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />

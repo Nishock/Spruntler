@@ -1,40 +1,89 @@
-"use client";
+"use client"
 
-import type React from "react";
+import type React from "react"
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { MenuIcon, Send } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
-import { useState } from "react";
-import { ActionButton } from "@/components/action-button";
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { MenuIcon, X } from "lucide-react"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { useState, useEffect } from "react"
+import { ActionButton } from "@/components/action-button"
 
-export default function SiteHeader() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
-  const [validated, setValidated] = useState(false);
-  const pathname = usePathname();
-
-  const getActiveClass = (path: string) =>
-    pathname.startsWith(path)
-      ? "text-white font-bold"
-      : "text-white/70 hover:text-white transition";
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    } else {
-      // Handle form submission here
-      console.log("Form submitted!");
-      setIsContactOpen(false);
+// Custom Modal Component
+const ContactModal = ({
+  isOpen,
+  onClose,
+  children,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  children: React.ReactNode
+}) => {
+  // Close modal when Escape key is pressed
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose()
+      }
     }
 
-    setValidated(true);
-  };
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [isOpen, onClose])
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isOpen])
+
+  if (!isOpen) return null
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div className="relative w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
+        {children}
+        <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white" aria-label="Close">
+          <X size={24} />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export default function SiteHeader() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [isContactOpen, setIsContactOpen] = useState(false)
+  const [validated, setValidated] = useState(false)
+  const pathname = usePathname()
+
+  const getActiveClass = (path: string) =>
+    pathname.startsWith(path) ? "text-white font-bold" : "text-white/70 hover:text-white transition"
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget as HTMLFormElement
+    if (form.checkValidity() === false) {
+      event.stopPropagation()
+    } else {
+      // Handle form submission here
+      console.log("Form submitted!")
+      setIsContactOpen(false)
+    }
+
+    setValidated(true)
+  }
 
   return (
     <header className="py-4 border-b border-white/10 max-md:backdrop-blur-sm md:border-none sticky top-0 z-10 bg-transparent backdrop-blur-sm">
@@ -68,7 +117,6 @@ export default function SiteHeader() {
             <Link href="/services" className={getActiveClass("/services")}>
               Services
             </Link>
-
             <Link href="/blogs" className={getActiveClass("/blogs")}>
               Blogs
             </Link>
@@ -77,26 +125,17 @@ export default function SiteHeader() {
           {/* Mobile Navigation */}
           <section className="flex max-md:gap-4 items-center">
             {/* Open Contact Modal */}
-            <ActionButton
-              label="Contact Us"
-              onClick={() => setIsContactOpen(true)}
-            />
+            <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />
 
-            {/* Contact Form Dialog */}
-            <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
-              <DialogContent className="bg-black/80 backdrop-blur-sm text-white border-2 border-white/20 p-12 max-w-2xl rounded-xl">
+            {/* Contact Form Modal */}
+            <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)}>
+              <div className="bg-black/80 backdrop-blur-sm text-white border-2 border-white/20 p-12 max-w-2xl rounded-xl">
                 <div className="text-center pb-6">
                   <h3 className="text-4xl font-bold mb-4">Contact Us</h3>
-                  <p className="text-lg text-white/80">
-                    We&apos; d love to hear from you.
-                  </p>
+                  <p className="text-lg text-white/80">We&apos;d love to hear from you.</p>
                 </div>
 
-                <form
-                  className="grid grid-cols-1 gap-6"
-                  onSubmit={handleSubmit}
-                  noValidate
-                >
+                <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit} noValidate>
                   <div className="space-y-8">
                     <input
                       className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
@@ -117,7 +156,7 @@ export default function SiteHeader() {
                     <input
                       className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
                       type="text"
-                      name="Mobile No."
+                      name="phone"
                       placeholder="Contact No."
                       required
                     />
@@ -140,22 +179,17 @@ export default function SiteHeader() {
                     </button>
                   </div>
                 </form>
-              </DialogContent>
-            </Dialog>
+              </div>
+            </ContactModal>
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger aria-label="Open Navigation Menu">
                 <MenuIcon className="size-9 md:hidden text-white/70 hover:text-white transition" />
               </SheetTrigger>
-              <SheetContent
-                side="top"
-                className="p-8 bg-black/80 border-b border-white/10 backdrop-blur-lg"
-              >
+              <SheetContent side="top" className="p-8 bg-black/80 border-b border-white/10 backdrop-blur-lg">
                 <div className="inline-flex items-center center gap-3">
-                  <p className="font-bold text-blue-400 animate-pulse text-xl">
-                    Spruntler
-                  </p>
+                  <p className="font-bold text-blue-400 animate-pulse text-xl">Spruntler</p>
                 </div>
                 <div className="mt-8 mb-4">
                   <nav className="grid gap-4 items-center text-lg">
@@ -165,13 +199,9 @@ export default function SiteHeader() {
                     <Link href="/about" className={getActiveClass("/about")}>
                       About Us
                     </Link>
-                    <Link
-                      href="/services"
-                      className={getActiveClass("/services")}
-                    >
+                    <Link href="/services" className={getActiveClass("/services")}>
                       Services
                     </Link>
-
                     <Link href="/blogs" className={getActiveClass("/blogs")}>
                       Blogs
                     </Link>
@@ -183,5 +213,6 @@ export default function SiteHeader() {
         </div>
       </div>
     </header>
-  );
+  )
 }
+

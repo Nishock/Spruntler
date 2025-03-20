@@ -3,6 +3,8 @@
 import React from "react";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 
 const HeroHeaderShapes = () => (
@@ -13,7 +15,7 @@ const HeroHeaderShapes = () => (
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="62" cy="106.602" r="106" fill="#1e3a8a" fillOpacity="0.4" />
+      <circle cx="62" cy="106.602" r="106" fill="#1e3a8a" />
     </svg>
 
     <svg
@@ -42,34 +44,37 @@ const Master = () => {
       <HeroHeaderShapes />
 
       <div className="container px-6 md:px-10 mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="text-center lg:text-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div className="text-center lg:text-start space-y-14">
             <motion.h2
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-3xl md:text-[55px] mb-20 lg:text-[70px] font-bold leading-none mb-6"
+              className="text-3xl md:text-[55px] lg:text-[70px] font-bold leading-none"
             >
               Mohammed Aamir
             </motion.h2>
-            <p className="text-[14px] my-20 md:text-[15px] text-gray-300">
+            <p className="text-[14px] md:text-[15px] text-gray-300">
               Founder & CEO of Spruntler, blends data-driven strategy with creative storytelling to craft powerful digital marketing solutions that drive brand growth and engagement.
             </p>
-            <div>
-              <a
-                href="#!"
-                className="bg-indigo-600 text-white shadow-xl rounded-lg py-2 px-6 text-lg md:text-xl mt-6 inline-block transition-all hover:bg-indigo-700 hover:shadow-2xl"
-              >
-                Contact Now <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+            <div className="flex justify-center lg:justify-start space-x-10 mt-10">
+              <a href="https://wa.me/qr/ZVXUQM37PTK2G1" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faWhatsapp} className="text-green-500 text-4xl" />
+              </a>
+              <a href="https://www.linkedin.com/in/mohammed-aamir-1057aa1b8?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faLinkedin} className="text-blue-500 text-4xl" />
+              </a>
+              <a href="https://calendly.com/aamir-spruntler/30min" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faCalendarAlt} className="text-yellow-500 text-4xl" />
               </a>
             </div>
           </div>
 
-          <div className="text-center lg:text-start">
+          <div className="flex justify-center lg:justify-end">
             <motion.img
-              src="https://2t3690zz96.ufs.sh/f/LisFD3CqijuvBSEuaytWAMI9yDljtGTCoY07mk3NRLJi2UVF"
+              src="https://2t3690zz96.ufs.sh/f/LisFD3CqijuvvEIoxn3Rq9Ue1BLcGshHtWQuX5j3KpYIxCln"
               alt="Mohammed Aamir"
-              className="border rounded-lg w-max max-w-[300px] md:max-w-[400px] lg:max-w-full mx-auto"
+              className=" rounded-lg w-max max-w-[250px] md:max-w-[300px] lg:max-w-[350px] mx-auto"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}

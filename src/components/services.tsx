@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCannabis,
   faHeart,
-  faLongArrowAltRight,
   faRandom,
   faVest,
   faYinYang,
@@ -26,7 +25,7 @@ const services = [
   },
   {
     icon: faRandom,
-    title: "Branding & Identity Make Your Brand Unforgettable",
+    title: "Branding & Identity – Make Your Brand Unforgettable",
     description: "Strategic storytelling, bold visuals, and market insights ensure your brand stands out with purpose and personality.",
   },
   {
@@ -54,10 +53,6 @@ const ServiceItem = ({ service }: { service: typeof services[number] }) => (
     <div className="p-4">
       <h3 className="text-lg font-semibold mb-4 text-white">{service.title}</h3>
       <p className="text-gray-400 mb-6">{service.description}</p>
-      {/* <button className="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium transition-colors">
-        Learn More
-        <FontAwesomeIcon icon={faLongArrowAltRight} className="ml-2" />
-      </button> */}
     </div>
   </div>
 );
@@ -65,40 +60,48 @@ const ServiceItem = ({ service }: { service: typeof services[number] }) => (
 // FAQ Component
 const faqList = [
   {
-    question: "What services do you offer?",
-    answer: "We provide comprehensive digital solutions including web development, content creation, and brand strategy.",
+    question: "What services does Spruntler offer?",
+    answer: "Spruntler isn’t just another marketing agency—we’re your brand’s growth partner. We offer everything from social media management to advertising, branding, and website development. If it helps boost your brand’s presence, we’ve got it covered.",
   },
   {
-    question: "How long do projects typically take?",
-    answer: "Project timelines vary based on complexity, but we always deliver within agreed deadlines.",
+    question: "What industries does Spruntler work with?",
+    answer: "We’ve worked with brands in lifestyle, fashion, tech, healthcare, hospitality, and e-commerce—but we don’t believe in limits. If you have a business and a vision, we’re ready to make it happen.",
   },
   {
-    question: "Do you offer ongoing support?",
-    answer: "Yes, we provide maintenance and support packages for all our solutions.",
+    question: "What is the typical onboarding process at Spruntler?",
+    answer: "We keep it simple but thorough. First, we chat (coffee optional but recommended) to understand your goals. Then, we dive into market research, develop a tailored strategy, and hit the ground running with a structured execution plan.",
   },
   {
-    question: "What's your pricing model?",
-    answer: "We offer flexible pricing including project-based and retainer options.",
+    question: "Does Spruntler work with startups and small businesses?",
+    answer: "Absolutely! Whether you’re a fresh startup or an established business looking to scale, we create custom strategies to match your size, budget, and goals. No business is too small for big results.",
   },
   {
-    question: "How do we start a project?",
-    answer: "Contact us for a free consultation to discuss your requirements.",
+    question: "Is there a minimum contract period with Spruntler?",
+    answer: "Yes, we typically work with clients for 3 to 6 months. Why? Because great results take time—and we’re here to build lasting success, not quick wins.",
   },
   {
-    question: "What industries do you serve?",
-    answer: "We work with businesses across all sectors, from startups to enterprises.",
+    question: "What is Spruntler’s pricing structure?",
+    answer: "Our pricing isn’t one-size-fits-all—it’s tailored to your needs. It depends on factors like platforms, content volume, and campaign scope. We’ll give you a custom quote that makes sense for your goals (and your budget).",
   },
 ];
 
-const FaqItem = ({ faq, isOpen, onClick }: { faq: typeof faqList[number], isOpen: boolean, onClick: () => void }) => (
+const FaqItem = ({
+  faq,
+  isOpen,
+  onClick,
+}: {
+  faq: typeof faqList[number];
+  isOpen: boolean;
+  onClick: () => void;
+}) => (
   <div className="border border-gray-800 rounded-lg mb-4 overflow-hidden">
     <button
       onClick={onClick}
       className="w-full p-6 text-left flex justify-between items-center bg-black hover:bg-gray-900 transition-colors"
     >
       <span className="text-gray-200 font-medium">{faq.question}</span>
-      <FontAwesomeIcon 
-        icon={isOpen ? faMinus : faPlus} 
+      <FontAwesomeIcon
+        icon={isOpen ? faMinus : faPlus}
         className="text-gray-400 ml-4 transition-transform"
       />
     </button>
@@ -113,6 +116,10 @@ const FaqItem = ({ faq, isOpen, onClick }: { faq: typeof faqList[number], isOpen
 // Main Page Component
 export default function ServicesPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleFaqClick = (index: number) => {
+    setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   return (
     <main className="min-h-screen">
@@ -154,7 +161,7 @@ export default function ServicesPage() {
                 key={index}
                 faq={faq}
                 isOpen={openIndex === index}
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                onClick={() => handleFaqClick(index)}
               />
             ))}
           </div>

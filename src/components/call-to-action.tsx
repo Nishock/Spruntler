@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client"
 
 import type React from "react"
@@ -5,8 +6,10 @@ import type React from "react"
 import { ActionButton } from "@/components/action-button"
 import BackgroundStars from "@/assets/stars.png"
 import BackgroundGrid from "@/assets/grid-lines.png"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform } from "framer-motion"
 import { type RefObject, useEffect, useRef, useState } from "react"
+import { CheckCircle } from "lucide-react"
 
 // Custom Hook for Relative Mouse Position
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
@@ -28,45 +31,9 @@ const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
   return [mouseX, mouseY]
 }
 
-// Custom Modal Component
-const ContactModal = ({
-  isOpen,
-  onClose,
-  children,
-}: {
-  isOpen: boolean
-  onClose: () => void
-  children: React.ReactNode
-}) => {
-  if (!isOpen) return null
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
-        {children}
-        <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white" aria-label="Close">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      </div>
-    </div>
-  )
-}
-
 export function CallToAction() {
   const [isContactOpen, setIsContactOpen] = useState(false)
+  const [messageSent, setMessageSent] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const borderedDivRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -78,132 +45,153 @@ export function CallToAction() {
   const [mouseX, mouseY] = useRelativeMousePosition(borderedDivRef)
   const maskImage = useMotionTemplate`radial-gradient(50% 50% at ${mouseX}px ${mouseY}px, black, transparent)`
 
+  // Reset form state when dialog closes
+  useEffect(() => {
+    if (!isContactOpen) {
+      setTimeout(() => {
+        setMessageSent(false)
+      }, 300)
+    }
+  }, [isContactOpen])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    alert("Form submitted successfully!")
-    setIsContactOpen(false)
+    // Handle form submission logic here
+    console.log("Form submitted!")
+    setMessageSent(true)
+
+    // Auto close dialog after 3 seconds
+    setTimeout(() => {
+      setIsContactOpen(false)
+    }, 3000)
   }
-
-  // Close modal when Escape key is pressed
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isContactOpen) {
-        setIsContactOpen(false)
-      }
-    }
-
-    window.addEventListener("keydown", handleEscape)
-    return () => window.removeEventListener("keydown", handleEscape)
-  }, [isContactOpen])
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isContactOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isContactOpen])
 
   return (
     <section className="py-10 md:py-12" ref={sectionRef}>
       <div className="container">
-        <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)}>
-          <div className="bg-black/80 backdrop-blur-sm text-white border-2 border-white/20 p-12 max-w-2xl rounded-xl">
-            <div className="text-center pb-6">
-              <h3 className="text-4xl font-bold mb-4">Contact Us</h3>
-              <p className="text-lg text-white/80">We&apos; d love to hear from you.</p>
-            </div>
+        <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+          <DialogContent>
+            {!messageSent ? (
+              <>
+                <div className="text-center mb-5">
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                    Contact Us
+                  </h3>
+                  <p className="text-sm md:text-base text-white/70">We'd love to hear from you.</p>
+                </div>
 
-            <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit} noValidate>
-              <div className="space-y-8">
-                <input
-                  className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
-                  type="text"
-                  name="name"
-                  placeholder="Full Name"
-                  required
-                />
+                <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit} noValidate>
+                  <div className="space-y-4">
+                    <div className="relative">
+                      <input
+                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                        type="text"
+                        name="name"
+                        placeholder="Full Name"
+                        required
+                      />
+                    </div>
 
-                <input
-                  className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  required
-                />
+                    <div className="relative">
+                      <input
+                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required
+                      />
+                    </div>
 
-                <input
-                  className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
-                  type="text"
-                  name="phone"
-                  placeholder="Contact No."
-                  required
-                />
+                    <div className="relative">
+                      <input
+                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                        type="text"
+                        name="Mobile No."
+                        placeholder="Contact No."
+                        required
+                      />
+                    </div>
 
-                <textarea
-                  className="w-full bg-transparent border-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none p-4 rounded-lg transition-colors duration-300"
-                  name="message"
-                  placeholder="Your Message"
-                  rows={4}
-                  required
-                ></textarea>
-              </div>
+                    <div className="relative">
+                      <textarea
+                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none p-3 text-sm transition-colors duration-300"
+                        name="message"
+                        placeholder="Your Message"
+                        rows={3}
+                        required
+                      ></textarea>
+                    </div>
+                  </div>
 
-              <div className="mt-8">
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-8 rounded-lg transition-colors duration-300"
+                  <div className="mt-2">
+                    <button
+                      type="submit"
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 text-sm shadow-lg shadow-blue-500/20"
+                    >
+                      Send Message
+                    </button>
+                  </div>
+                </form>
+              </>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-6 text-center">
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="rounded-full bg-green-500/20 p-3 mb-4"
                 >
-                  Send Message
-                </button>
+                  <CheckCircle className="h-10 w-10 text-green-500" />
+                </motion.div>
+                <motion.h3
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="text-xl font-bold mb-2"
+                >
+                  Message Sent!
+                </motion.h3>
+                <motion.p
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-white/70 text-sm max-w-xs"
+                >
+                  Thank you for reaching out. We'll get back to you as soon as possible.
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-5 text-xs text-white/50"
+                >
+                  Closing automatically...
+                </motion.div>
               </div>
-            </form>
-          </div>
-        </ContactModal>
+            )}
+          </DialogContent>
+        </Dialog>
 
         <motion.div
-          animate={{
-            backgroundPositionX:
-              typeof BackgroundStars === "object" && "width" in BackgroundStars ? BackgroundStars.width : "100%",
-          }}
+          animate={{ backgroundPositionX: BackgroundStars.width }}
           transition={{ duration: 120, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
           className="border border-muted py-24 px-6 rounded-xl overflow-hidden relative group"
-          style={{
-            backgroundImage: `url(${
-              typeof BackgroundStars === "object" && "src" in BackgroundStars ? BackgroundStars.src : BackgroundStars
-            })`,
-            backgroundPositionY,
-          }}
+          style={{ backgroundImage: `url(${BackgroundStars.src})`, backgroundPositionY }}
         >
           <div
             className="absolute inset-0 bg-[rgb(54,40,255)] bg-blend-overlay [mask-image:radial-gradient(50%_50%_at_50%_35%,black,transparent)] group-hover:opacity-0 transition duration-700"
-            style={{
-              backgroundImage: `url(${
-                typeof BackgroundGrid === "object" && "src" in BackgroundGrid ? BackgroundGrid.src : BackgroundGrid
-              })`,
-            }}
+            style={{ backgroundImage: `url(${BackgroundGrid.src})` }}
           />
 
           <motion.div
             className="absolute inset-0 bg-[rgb(54,40,255)] bg-blend-overlay opacity-0 group-hover:opacity-100 transition duration-700"
-            style={{
-              backgroundImage: `url(${
-                typeof BackgroundGrid === "object" && "src" in BackgroundGrid ? BackgroundGrid.src : BackgroundGrid
-              })`,
-              maskImage,
-            }}
+            style={{ backgroundImage: `url(${BackgroundGrid.src})`, maskImage }}
             ref={borderedDivRef}
           />
 
           <div className="relative">
-            <h2 className="text-5xl tracking-tighter text-center font-medium">Let&apos; s get to work</h2>
+            <h2 className="text-5xl tracking-tighter text-center font-medium">Let's get to work</h2>
             <p className="text-center text-lg md:text-xl text-white/70 tracking-tight px-4 mt-5">
-              Achieve clear impactful results without the complexity.
+              Achieve clear, impactful results without the complexity.
             </p>
             <div className="flex justify-center mt-8">
               <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />

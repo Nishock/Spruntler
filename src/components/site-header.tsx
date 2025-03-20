@@ -1,89 +1,54 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { MenuIcon, X } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { useState, useEffect } from "react"
-import { ActionButton } from "@/components/action-button"
-
-// Custom Modal Component
-const ContactModal = ({
-  isOpen,
-  onClose,
-  children,
-}: {
-  isOpen: boolean
-  onClose: () => void
-  children: React.ReactNode
-}) => {
-  // Close modal when Escape key is pressed
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose()
-      }
-    }
-
-    window.addEventListener("keydown", handleEscape)
-    return () => window.removeEventListener("keydown", handleEscape)
-  }, [isOpen, onClose])
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isOpen])
-
-  if (!isOpen) return null
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-      onClick={onClose}
-    >
-      <div className="relative w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>
-        {children}
-        <button onClick={onClose} className="absolute top-4 right-4 text-white/70 hover:text-white" aria-label="Close">
-          <X size={24} />
-        </button>
-      </div>
-    </div>
-  )
-}
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { MenuIcon, CheckCircle } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState, useEffect } from "react";
+import { ActionButton } from "@/components/action-button";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function SiteHeader() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isContactOpen, setIsContactOpen] = useState(false)
-  const [validated, setValidated] = useState(false)
-  const pathname = usePathname()
+  const [isOpen, setIsOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [validated, setValidated] = useState(false);
+  const [messageSent, setMessageSent] = useState(false);
+  const pathname = usePathname();
 
   const getActiveClass = (path: string) =>
-    pathname.startsWith(path) ? "text-white font-bold" : "text-white/70 hover:text-white transition"
+    pathname.startsWith(path)
+      ? "text-white font-bold"
+      : "text-white/70 hover:text-white transition";
+
+  // Reset form state when dialog closes
+  useEffect(() => {
+    if (!isContactOpen) {
+      setTimeout(() => {
+        setMessageSent(false);
+      }, 300);
+    }
+  }, [isContactOpen]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const form = event.currentTarget as HTMLFormElement
+    const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.stopPropagation()
+      event.stopPropagation();
+      setValidated(true);
     } else {
       // Handle form submission here
-      console.log("Form submitted!")
-      setIsContactOpen(false)
-    }
+      console.log("Form submitted!");
+      setMessageSent(true);
 
-    setValidated(true)
-  }
+      // Auto close dialog after 3 seconds
+      setTimeout(() => {
+        setIsContactOpen(false);
+      }, 3000);
+    }
+  };
 
   return (
     <header className="py-4 border-b border-white/10 max-md:backdrop-blur-sm md:border-none sticky top-0 z-10 bg-transparent backdrop-blur-sm">
@@ -92,7 +57,7 @@ export default function SiteHeader() {
           {/* Glowing Text Logo */}
           <Link href="/" aria-label="Home">
             <div
-              className="animate-pulse"
+              className="animate"
               style={{
                 fontFamily:
                   '"FONTSPRING DEMO - Proxima Nova Bold", "FONTSPRING DEMO - Proxima Nova Bold Placeholder", sans-serif',
@@ -100,6 +65,8 @@ export default function SiteHeader() {
                 textAlign: "left",
                 color: "rgb(77, 64, 239)",
                 fontWeight: "bold",
+                textShadow:
+                  "0 0 10px rgba(77, 64, 239, 0.8), 0 0 20px rgba(77, 64, 239, 0.6)", // Glow effect
               }}
             >
               Spruntler
@@ -121,75 +88,116 @@ export default function SiteHeader() {
               Blogs
             </Link>
           </nav>
-
           {/* Mobile Navigation */}
           <section className="flex max-md:gap-4 items-center">
             {/* Open Contact Modal */}
-            <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />
+            <ActionButton
+              label="Contact Us"
+              onClick={() => setIsContactOpen(true)}
+            />
 
-            {/* Contact Form Modal */}
-            <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)}>
-              <div className="bg-black/80 backdrop-blur-sm text-white border-2 border-white/20 p-12 max-w-2xl rounded-xl">
-                <div className="text-center pb-6">
-                  <h3 className="text-4xl font-bold mb-4">Contact Us</h3>
-                  <p className="text-lg text-white/80">We&apos;d love to hear from you.</p>
-                </div>
+            {/* Contact Form Dialog */}
+            <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+              <DialogContent>
+                {!messageSent ? (
+                  <>
+                    <div className="text-center mb-5">
+                      <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
+                        Contact Us
+                      </h3>
+                      <p className="text-sm md:text-base text-white/70">
+                        We&apos;d love to hear from you.
+                      </p>
+                    </div>
 
-                <form className="grid grid-cols-1 gap-6" onSubmit={handleSubmit} noValidate>
-                  <div className="space-y-8">
-                    <input
-                      className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
-                      type="text"
-                      name="name"
-                      placeholder="Full Name"
-                      required
-                    />
-
-                    <input
-                      className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      required
-                    />
-
-                    <input
-                      className="w-full bg-transparent border-b-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none py-3 transition-colors duration-300"
-                      type="text"
-                      name="phone"
-                      placeholder="Contact No."
-                      required
-                    />
-
-                    <textarea
-                      className="w-full bg-transparent border-2 border-white/30 placeholder:text-white/50 text-white focus:border-blue-500 focus:outline-none p-4 rounded-lg transition-colors duration-300"
-                      name="message"
-                      placeholder="Your Message"
-                      rows={4}
-                      required
-                    ></textarea>
-                  </div>
-
-                  <div className="mt-8">
-                    <button
-                      type="submit"
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-8 rounded-lg transition-colors duration-300"
+                    <form
+                      className="grid grid-cols-1 gap-4"
+                      onSubmit={handleSubmit}
+                      noValidate
                     >
-                      Send Message
-                    </button>
+                      <div className="space-y-4">
+                        <div className="relative">
+                          <input
+                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                            type="text"
+                            name="name"
+                            placeholder="Full Name"
+                            required
+                          />
+                        </div>
+
+                        <div className="relative">
+                          <input
+                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            required
+                          />
+                        </div>
+
+                        <div className="relative">
+                          <input
+                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                            type="text"
+                            name="Mobile No."
+                            placeholder="Contact No."
+                            required
+                          />
+                        </div>
+
+                        <div className="relative">
+                          <textarea
+                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none p-3 text-sm transition-colors duration-300"
+                            name="message"
+                            placeholder="Your Message"
+                            rows={3}
+                            required
+                          ></textarea>
+                        </div>
+                      </div>
+
+                      <div className="mt-2">
+                        <button
+                          type="submit"
+                          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 text-sm shadow-lg shadow-blue-500/20"
+                        >
+                          Send Message
+                        </button>
+                      </div>
+                    </form>
+                  </>
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-6 text-center">
+                    <div className="rounded-full bg-green-500/20 p-3 mb-4">
+                      <CheckCircle className="h-10 w-10 text-green-500" />
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
+                    <p className="text-white/70 text-sm max-w-xs">
+                      Thank you for reaching out. We&apos;ll get back to you as soon
+                      as possible.
+                    </p>
+                    <div className="mt-5 text-xs text-white/50">
+                      Closing automatically...
+                    </div>
                   </div>
-                </form>
-              </div>
-            </ContactModal>
+                )}
+              </DialogContent>
+            </Dialog>
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger aria-label="Open Navigation Menu">
                 <MenuIcon className="size-9 md:hidden text-white/70 hover:text-white transition" />
               </SheetTrigger>
-              <SheetContent side="top" className="p-8 bg-black/80 border-b border-white/10 backdrop-blur-lg">
+              <SheetContent
+                side="top"
+                className="p-8 bg-black/80 border-b border-white/10 backdrop-blur-lg"
+              >
                 <div className="inline-flex items-center center gap-3">
-                  <p className="font-bold text-blue-400 animate-pulse text-xl">Spruntler</p>
+                  <p className="font-bold text-blue-400 animate-pulse text-xl">
+                    Spruntler
+                  </p>
                 </div>
                 <div className="mt-8 mb-4">
                   <nav className="grid gap-4 items-center text-lg">
@@ -199,7 +207,10 @@ export default function SiteHeader() {
                     <Link href="/about" className={getActiveClass("/about")}>
                       About Us
                     </Link>
-                    <Link href="/services" className={getActiveClass("/services")}>
+                    <Link
+                      href="/services"
+                      className={getActiveClass("/services")}
+                    >
                       Services
                     </Link>
                     <Link href="/blogs" className={getActiveClass("/blogs")}>
@@ -213,6 +224,5 @@ export default function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }
-

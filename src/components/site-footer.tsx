@@ -6,6 +6,8 @@ import {
   faVimeo,
   faDropbox,
   faGithub,
+  faInstagram,
+  faLinkedin
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
@@ -16,11 +18,10 @@ type SocialIconType = {
 };
 
 const socialIcons: SocialIconType[] = [
-  { icon: faTwitter, href: "#!", color: "hover:text-blue-400" },
-  { icon: faFacebook, href: "#!", color: "hover:text-blue-600" },
-  { icon: faVimeo, href: "#!", color: "hover:text-green-400" },
-  { icon: faDropbox, href: "#!", color: "hover:text-blue-500" },
-  { icon: faGithub, href: "#!", color: "hover:text-gray-200" },
+  // { icon: faTwitter, href: "#!", color: "hover:text-blue-400" },
+  // { icon: faFacebook, href: "#!", color: "hover:text-blue-600" },
+  { icon: faInstagram, href: "https://www.instagram.com/spruntler?igsh=MWRwMmtsdXp6a3k2bA==", color: "hover:text-pink-500" },
+  { icon: faLinkedin, href: "https://www.linkedin.com/company/spruntler/", color: "hover:text-blue-700" },
 ];
 
 type SocialItemProps = {

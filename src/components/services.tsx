@@ -140,6 +140,28 @@ export default function ServicesPage() {
               <ServiceItem key={index} service={service} />
             ))}
           </div>
+          <div className="mt-4 md:mt-6 flex justify-center">
+  <a
+    href="/blogs"
+    className="bg-black-900 border rounded-lg py-3 px-8 md:py-4 md:px-10 hover:bg-opacity-90 duration-300 text-white text-lg md:text-xl inline-flex items-center gap-2"
+  >
+     Know More..
+    <svg
+      className="w-4 h-4 md:w-5 md:h-5"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
+  </a>
+</div>
+
         </div>
       </section>
 

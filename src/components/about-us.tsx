@@ -15,13 +15,13 @@ interface StoryItemProps {
 
 const stories = [
     {
-        title: "Vision",
-        description: "Transform online advertising by shifting the focus from confusing jargon to clear, results-driven strategies...",
+        title: "Our Vision",
+        description: "To transform online advertising from jargon-centric to victory-focused.",
         image: "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvYjN6IybMENgCYhBFIJAtr2PZqxG86dKOwk05",
     },
     {
-        title: "Mission",
-        description: "More off this less hello salamander lied porpoise much over tightly circa horse taped...",
+        title: "Our Mission",
+        description: "Support businesses in their growth with creative, data-driven marketing tactics that aren’t merely aesthetically pleasing, but genuinely yield fruitful results.",
         image: "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuv35nrdGi4L2TidwOEMYxr7tj91AWBhQNpZFly",
     },
 ];
@@ -61,7 +61,7 @@ export const AboutUs = () => {
                     We’re a team of creative strategists, digital wizards, and marketing nerds...
                 </p>
 
-                <div className="space-y-16">
+                <div className="space-y-16 ml-32">
                     {stories.map((item, i) => (
                         <StoryItem key={i} item={item} index={i + 1} />
                     ))}

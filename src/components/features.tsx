@@ -169,7 +169,7 @@ export function Features() {
         <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto text-center tracking-tight mt-5">
           At Spruntler, we believe in value-driven partnerships that transcend
           transactional relationships. We&apos;re not just another service provider
-          – we&apos;re your marketing muse, a dedicated team invested in your
+          we&apos;re your marketing muse, a dedicated team invested in your
           brand&apos;s success. Here&apos;s what sets us apart:
         </p>
 

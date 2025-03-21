@@ -59,7 +59,7 @@ export default function MarketingSection() {
         </div>
 
         <div className="flex flex-col items-center">
-            <div className="h-24 w-24 mb-6 relative">
+            <div className="h-24 w-24 mt-20 mb-6 relative">
               {/* Placeholder for the funnel image - you can replace this with your own image */}
               <div className="w-full h-full flex items-center justify-center">
                 <img

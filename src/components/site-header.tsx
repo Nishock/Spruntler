@@ -93,7 +93,7 @@ export default function SiteHeader() {
                         Contact Us
                       </h3>
                       <p className="text-sm md:text-base text-white/70">
-                        We'd love to hear from you.
+                        We&apos;d love to hear from you.
                       </p>
                     </div>
 
@@ -134,7 +134,7 @@ export default function SiteHeader() {
                     </div>
                     <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
                     <p className="text-white/70 text-sm max-w-xs">
-                      Thank you for reaching out. We'll get back to you as soon as possible.
+                      Thank you for reaching out. We&apos;ll get back to you as soon as possible.
                     </p>
                     <div className="mt-5 text-xs text-white/50">
                       Closing automatically...

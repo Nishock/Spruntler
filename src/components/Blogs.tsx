@@ -1,35 +1,50 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import Link from "next/link"
-import { slugify } from "@/lib/utils"
-import { blogs } from "@/lib/data"
+import { useRef } from "react";
+import Link from "next/link";
+import { slugify } from "@/lib/utils";
+import { blogs } from "@/lib/data";
 
-const BlogItem = ({ blog }) => {
-  const { title, description, author, date, month, year, image } = blog
-  const divRef = useRef(null)
+// Define TypeScript interface for blog data
+interface Blog {
+  title: string;
+  description: string;
+  author: string;
+  date: string;
+  month: string;
+  year: string;
+  image?: string; // Optional field
+}
 
-  const handleMouseMove = (e) => {
+const BlogItem = ({ blog }: { blog: Blog }) => {
+  const { title, description, author, date, month, year, image } = blog;
+  const divRef = useRef<HTMLDivElement | null>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (divRef.current) {
-      const rect = divRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
-      divRef.current.style.setProperty("--mouse-x", `${x}px`)
-      divRef.current.style.setProperty("--mouse-y", `${y}px`)
+      const rect = divRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      divRef.current.style.setProperty("--mouse-x", `${x}px`);
+      divRef.current.style.setProperty("--mouse-y", `${y}px`);
     }
-  }
+  };
 
   // Generate a slug for the blog post URL
-  const slug = slugify(title)
+  const slug = slugify(title);
 
   return (
     <article
       ref={divRef}
       onMouseMove={handleMouseMove}
-      className="rounded-lg  text-white shadow-lg h-full flex flex-col p-4 relative overflow-hidden border border-[#222] hover:shadow-[0_4px_20px_rgba(0,229,255,0.3)] transition-shadow duration-300"
+      className="rounded-lg text-white shadow-lg h-full flex flex-col p-4 relative overflow-hidden border border-[#222] hover:shadow-[0_4px_20px_rgba(0,229,255,0.3)] transition-shadow duration-300"
     >
       <div className="relative">
-        <img src={image || "/placeholder.svg"} alt={title} className="h-48 w-full object-cover rounded-t-lg" />
+        <img
+          src={image || "/placeholder.svg"}
+          alt={title}
+          className="h-48 w-full object-cover rounded-t-lg"
+        />
         <div className="absolute bottom-2 left-2 text-lg leading-6 px-4 py-2 font-black bg-black opacity-80 rounded-lg">
           {date}
           <br />
@@ -55,12 +70,12 @@ const BlogItem = ({ blog }) => {
         </Link>
       </div>
     </article>
-  )
-}
+  );
+};
 
 const Blogs = () => {
   return (
-    <section className="py-16 md:py-24  text-white overflow-hidden">
+    <section className="py-16 md:py-24 text-white overflow-hidden">
       <div className="container px-8 md:px-24 mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
@@ -79,8 +94,7 @@ const Blogs = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Blogs
-
+export default Blogs;

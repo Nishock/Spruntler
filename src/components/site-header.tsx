@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MenuIcon, CheckCircle } from "lucide-react";
@@ -17,8 +16,9 @@ export default function SiteHeader() {
   const [messageSent, setMessageSent] = useState(false);
   const pathname = usePathname();
 
+  // ✅ Fixed function to check exact pathname match
   const getActiveClass = (path: string) =>
-    pathname.startsWith(path)
+    pathname === path
       ? "text-white font-bold"
       : "text-white/70 hover:text-white transition";
 
@@ -33,17 +33,14 @@ export default function SiteHeader() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const form = event.currentTarget;
+
     if (form.checkValidity() === false) {
       event.stopPropagation();
       setValidated(true);
     } else {
-      // Handle form submission here
       console.log("Form submitted!");
       setMessageSent(true);
-
-      // Auto close dialog after 3 seconds
       setTimeout(() => {
         setIsContactOpen(false);
       }, 3000);
@@ -54,19 +51,20 @@ export default function SiteHeader() {
     <header className="py-4 border-b border-white/10 max-md:backdrop-blur-sm md:border-none sticky top-0 z-10 bg-transparent backdrop-blur-sm">
       <div className="container max-md:px-4">
         <div className="flex items-center justify-between md:border md:p-2.5 md:rounded-xl max-w-2xl mx-auto md:backdrop-blur-md md:bg-white/5 md:border-white/10">
+          
           {/* Glowing Text Logo */}
           <Link href="/" aria-label="Home">
             <div
               className="animate"
               style={{
                 fontFamily:
-                  '"FONTSPRING DEMO - Proxima Nova Bold", "FONTSPRING DEMO - Proxima Nova Bold Placeholder", sans-serif',
+                  '"FONTSPRING DEMO - Proxima Nova Bold", sans-serif',
                 fontSize: "30px",
                 textAlign: "left",
                 color: "rgb(77, 64, 239)",
                 fontWeight: "bold",
                 textShadow:
-                  "0 0 10px rgba(77, 64, 239, 0.8), 0 0 20px rgba(77, 64, 239, 0.6)", // Glow effect
+                  "0 0 10px rgba(77, 64, 239, 0.8), 0 0 20px rgba(77, 64, 239, 0.6)",
               }}
             >
               Spruntler
@@ -75,26 +73,15 @@ export default function SiteHeader() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8 items-center text-sm">
-            <Link href="/" className={getActiveClass("/services")}>
-              Home
-            </Link>
-            <Link href="/about" className={getActiveClass("/about")}>
-              About Us
-            </Link>
-            <Link href="/services" className={getActiveClass("/services")}>
-              Services
-            </Link>
-            <Link href="/blogs" className={getActiveClass("/blogs")}>
-              Blogs
-            </Link>
+            <Link href="/" className={getActiveClass("/")}>Home</Link>
+            <Link href="/about" className={getActiveClass("/about")}>About Us</Link>
+            <Link href="/services" className={getActiveClass("/services")}>Services</Link>
+            <Link href="/blogs" className={getActiveClass("/blogs")}>Blogs</Link>
           </nav>
+
           {/* Mobile Navigation */}
           <section className="flex max-md:gap-4 items-center">
-            {/* Open Contact Modal */}
-            <ActionButton
-              label="Contact Us"
-              onClick={() => setIsContactOpen(true)}
-            />
+            <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />
 
             {/* Contact Form Dialog */}
             <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
@@ -106,62 +93,35 @@ export default function SiteHeader() {
                         Contact Us
                       </h3>
                       <p className="text-sm md:text-base text-white/70">
-                        We&apos;d love to hear from you.
+                        We'd love to hear from you.
                       </p>
                     </div>
 
-                    <form
-                      className="grid grid-cols-1 gap-4"
-                      onSubmit={handleSubmit}
-                      noValidate
-                    >
+                    <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit} noValidate>
                       <div className="space-y-4">
                         <div className="relative">
-                          <input
-                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                            type="text"
-                            name="name"
-                            placeholder="Full Name"
-                            required
-                          />
+                          <input className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                            type="text" name="name" placeholder="Full Name" required />
                         </div>
 
                         <div className="relative">
-                          <input
-                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            required
-                          />
+                          <input className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                            type="email" name="email" placeholder="Email" required />
                         </div>
 
                         <div className="relative">
-                          <input
-                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                            type="text"
-                            name="Mobile No."
-                            placeholder="Contact No."
-                            required
-                          />
+                          <input className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
+                            type="text" name="Mobile No." placeholder="Contact No." required />
                         </div>
 
                         <div className="relative">
-                          <textarea
-                            className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none p-3 text-sm transition-colors duration-300"
-                            name="message"
-                            placeholder="Your Message"
-                            rows={3}
-                            required
-                          ></textarea>
+                          <textarea className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none p-3 text-sm transition-colors duration-300"
+                            name="message" placeholder="Your Message" rows={3} required></textarea>
                         </div>
                       </div>
 
                       <div className="mt-2">
-                        <button
-                          type="submit"
-                          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 text-sm shadow-lg shadow-blue-500/20"
-                        >
+                        <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 text-sm shadow-lg shadow-blue-500/20">
                           Send Message
                         </button>
                       </div>
@@ -174,8 +134,7 @@ export default function SiteHeader() {
                     </div>
                     <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
                     <p className="text-white/70 text-sm max-w-xs">
-                      Thank you for reaching out. We&apos;ll get back to you as soon
-                      as possible.
+                      Thank you for reaching out. We'll get back to you as soon as possible.
                     </p>
                     <div className="mt-5 text-xs text-white/50">
                       Closing automatically...
@@ -190,32 +149,16 @@ export default function SiteHeader() {
               <SheetTrigger aria-label="Open Navigation Menu">
                 <MenuIcon className="size-9 md:hidden text-white/70 hover:text-white transition" />
               </SheetTrigger>
-              <SheetContent
-                side="top"
-                className="p-8 bg-black/80 border-b border-white/10 backdrop-blur-lg"
-              >
+              <SheetContent className="p-8 bg-black/80 border-b border-white/10 backdrop-blur-lg">
                 <div className="inline-flex items-center center gap-3">
-                  <p className="font-bold text-blue-400 animate-pulse text-xl">
-                    Spruntler
-                  </p>
+                  <p className="font-bold text-blue-400 animate-pulse text-xl">Spruntler</p>
                 </div>
                 <div className="mt-8 mb-4">
                   <nav className="grid gap-4 items-center text-lg">
-                    <Link href="/" className={getActiveClass("/services")}>
-                      Home
-                    </Link>
-                    <Link href="/about" className={getActiveClass("/about")}>
-                      About Us
-                    </Link>
-                    <Link
-                      href="/services"
-                      className={getActiveClass("/services")}
-                    >
-                      Services
-                    </Link>
-                    <Link href="/blogs" className={getActiveClass("/blogs")}>
-                      Blogs
-                    </Link>
+                    <Link href="/" className={getActiveClass("/")}>Home</Link>
+                    <Link href="/about" className={getActiveClass("/about")}>About Us</Link>
+                    <Link href="/services" className={getActiveClass("/services")}>Services</Link>
+                    <Link href="/blogs" className={getActiveClass("/blogs")}>Blogs</Link>
                   </nav>
                 </div>
               </SheetContent>

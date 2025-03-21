@@ -46,7 +46,7 @@ const StoryItem: React.FC<StoryItemProps> = ({ item, index }) => {
           alt={title}
           width={300}
           height={300}
-          className="w-64 h-auto mx-auto md:mx-100 rounded-2xl shadow-lg hover:opacity-90 transition-opacity duration-300"
+          className="w-40 h-auto mx-auto md:mx-100 rounded-2xl shadow-lg hover:opacity-90 transition-opacity duration-300"
         />
       </div>
     </div>

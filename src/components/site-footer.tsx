@@ -1,11 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTwitter,
-  faFacebook,
-  faVimeo,
-  faDropbox,
-  faGithub,
   faInstagram,
   faLinkedin
 } from "@fortawesome/free-brands-svg-icons";
@@ -18,8 +13,6 @@ type SocialIconType = {
 };
 
 const socialIcons: SocialIconType[] = [
-  // { icon: faTwitter, href: "#!", color: "hover:text-blue-400" },
-  // { icon: faFacebook, href: "#!", color: "hover:text-blue-600" },
   { icon: faInstagram, href: "https://www.instagram.com/spruntler?igsh=MWRwMmtsdXp6a3k2bA==", color: "hover:text-pink-500" },
   { icon: faLinkedin, href: "https://www.linkedin.com/company/spruntler/", color: "hover:text-blue-700" },
 ];
@@ -32,6 +25,8 @@ const SocialItem: React.FC<SocialItemProps> = ({ social }) => (
   <li className="mx-3">
     <a
       href={social.href}
+      target="_blank"
+      rel="noopener noreferrer"
       className={`text-gray-400 text-2xl transition-all duration-300 ${social.color} hover:-translate-y-1`}
     >
       <FontAwesomeIcon icon={social.icon} />

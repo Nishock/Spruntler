@@ -16,8 +16,22 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Spruntler - Empower Your Ideas",
     description: "Explore innovative solutions with Spruntler.",
-    
     url: "https://spruntler.com",
+    images: [
+      {
+        url: "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvsVB64QMXdtpclPkgJfnsS4IxC3HrGA2Nu15e", // Apna actual OG image URL yahan dalen
+        width: 1200,
+        height: 630,
+        alt: "Spruntler - Empower Your Ideas",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Spruntler - Empower Your Ideas",
+    description: "Explore innovative solutions with Spruntler.",
+    images: ["https://www.spruntler.com/assets/og-image.jpg"], // Yahan bhi same OG image URL dalen
   },
 };
 

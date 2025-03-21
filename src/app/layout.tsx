@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Spruntler - Empower Your Ideas",
         description: "Explore innovative solutions with Spruntler.",
-        images: ["/og-image.png"],
+        images: [""],
         url: "https://spruntler.com",
     },
 };

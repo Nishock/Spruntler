@@ -33,11 +33,11 @@ const HeroSection = () => {
 
       {/* Planet */}
       <div className="absolute size-32 md:size-64 lg:size-96 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgba(77,64,239,0.2)_37.7%,rgba(77,64,239,0.3))] shadow-[0_0_30px_rgba(77,64,239,0.8),-10px_-10px_30px_rgba(255,255,255,0.3),-10px_-10px_50px_rgba(255,255,255,0.1)] bg-[rgb(77,64,239)] opacity-40 z-0 filter blur-lg md:blur-xl" />
-      <div className="container px-20 mx-auto relative z-10 md:mt-10 lg:-mt-32">
+      <div className="container px-8 py-8 mx-auto relative z-10 md:mt-10 lg:-mt-32">
         <div className="grid grid-cols-12 gap-y-8 lg:gap-x-8">
           {/* Text content - centered on mobile/tablet, left-aligned on desktop */}
           <div className="col-span-12 lg:col-span-6 xl:pr-12 flex items-center">
-            <div className="flex flex-col justify-center w-full px-4 sm:px-6 md:px-8">
+            <div className="flex flex-col justify-center w-full  px-4 sm:px-6 md:px-8">
               <h2 className="text-center lg:text-left text-5xl sm:text-5xl md:text-5xl font-bold mb-8 md:mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                 Where Possibility <br className="hidden md:block" /> Encounters Worth.
               </h2>

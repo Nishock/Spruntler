@@ -15,7 +15,7 @@ export default function BlogPage() {
     return (
       <div className="min-h-screen  text-white flex items-center justify-center flex-col p-4">
         <h1 className="text-3xl font-bold mb-4">Blog not found</h1>
-        <p className="mb-6">The blog post you're looking for doesn't exist.</p>
+        <p className="mb-6">The blog post you&apos;re looking for doesn&apos;t exist.</p>
         <Link
           href="/blogs"
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded transition"

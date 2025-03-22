@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { blogs } from "@/lib/data";
+import { CallToAction } from "@/components/call-to-action";
+import SiteFooter from "@/components/site-footer";
 import { findBlogBySlug } from "@/lib/utils";
 
 export default function BlogPage() {
@@ -12,7 +14,9 @@ export default function BlogPage() {
   const blog = findBlogBySlug(blogs, slug as string); 
   if (!blog) {
     return (
+      
       <div className="min-h-screen text-white flex items-center justify-center flex-col p-4">
+
         <h1 className="text-3xl font-bold mb-4">Blog not found</h1>
         <p className="mb-6">
           The blog post you&apos;re looking for doesn&apos;t exist.
@@ -64,6 +68,8 @@ export default function BlogPage() {
         <div className="prose prose-lg prose-invert max-w-none">
           <div dangerouslySetInnerHTML={{ __html: blog.content || "" }} />
         </div>
+         <CallToAction />
+          <SiteFooter />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import { ActionButton } from "@/components/action-button"
 
 const HeroSection = () => {
   const BackgroundStars = "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuv5JnGfkejThxfJzjOcDXKFbYIku81MV9yASQ4"
@@ -46,7 +47,7 @@ const HeroSection = () => {
                 turn your business from meh to marvelous with innovative, data-driven marketing, stunning websites, and
                 creative content that doesn&apos;t just get seen—it gets results.
               </p>
-              <div className="mt-4 md:mt-6 flex justify-center lg:justify-start">
+              {/* <div className="mt-4 md:mt-6 flex justify-center lg:justify-start">
                 <a
                   href="/about"
                   className="bg-black-900 border rounded-lg py-3 px-8 md:py-4 md:px-10 hover:bg-opacity-90 duration-300 text-white text-lg md:text-xl inline-flex items-center gap-2"
@@ -56,7 +57,11 @@ const HeroSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </a>
+              </div> */}
+              <div className="mt-6 flex justify-left">
+                <ActionButton label="About Us" onClick={() => window.location.href = "/about"} />
               </div>
+              
             </div>
           </div>
 

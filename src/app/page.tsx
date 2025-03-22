@@ -7,29 +7,20 @@ import SiteFooter from "@/components/site-footer";
 import { CallToAction } from "@/components/call-to-action";
 import  Market  from "@/components/MarketingThatWorks";
 import  ClientSuccess  from "@/components/ClientSuccess";
-
-// import AboutUs from "@/components/aboutUs";
-// import Master from "@/components/Master";
-// import { Features } from "@/components/features";
 import SplashCursor from './SplashCursor'
 import { Testimonials } from "@/components/testimonials";
-// import { GithubIndicator } from "@/components/github-indicator";
 
 export default function Home() {
     return (
         <>
-            {/* <SplashCursor />         */}
+            <SplashCursor />        
             <SiteHeader />
             <HeroSection />
-            <LogoTicker />
+            {/* <LogoTicker /> */}
             <Market />
             <ClientSuccess />
-            {/* <AboutUs /> */}
-            {/* <Master /> */}
-            {/* <Features /> */}
             <Testimonials />
             <CallToAction />
-            {/* <GithubIndicator /> */}
             <SiteFooter />
         </>
     );

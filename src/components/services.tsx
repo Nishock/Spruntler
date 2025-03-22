@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { ActionButton } from "@/components/action-button"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCannabis,
@@ -140,7 +141,7 @@ export default function ServicesPage() {
               <ServiceItem key={index} service={service} />
             ))}
           </div>
-          <div className="mt-4 md:mt-6 flex justify-center">
+          {/* <div className="mt-4 md:mt-6 flex justify-center">
   <a
     href="/blogs"
     className="bg-black-900 border rounded-lg py-3 px-8 md:py-4 md:px-10 hover:bg-opacity-90 duration-300 text-white text-lg md:text-xl inline-flex items-center gap-2"
@@ -160,7 +161,12 @@ export default function ServicesPage() {
       />
     </svg>
   </a>
+</div> */}
+
+<div className="mt-6 flex justify-center">
+  <ActionButton label="Read more" onClick={() => window.location.href = "/blogs"} />
 </div>
+
 
         </div>
       </section>

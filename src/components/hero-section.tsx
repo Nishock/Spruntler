@@ -59,7 +59,7 @@ const HeroSection = () => {
                 </a>
               </div> */}
               <div className="mt-6 flex justify-left">
-                <ActionButton label="About Us" onClick={() => window.location.href = "/about"} />
+                <ActionButton label="Get in touch" onClick={() => window.location.href = "/about"} />
               </div>
               
             </div>

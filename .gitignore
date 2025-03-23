@@ -35,4 +35,13 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-firebase-admin-sdk.json
+# Ignore environment files
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+
+# Ignore Firebase credentials file
+firebase-credentials.json
+

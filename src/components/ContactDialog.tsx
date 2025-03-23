@@ -54,7 +54,7 @@ const ContactDialog = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
               <h3 className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-500 bg-clip-text text-transparent">
                 Contact Us
               </h3>
-              <p className="text-gray-400 text-sm">We'd love to hear from you.</p>
+              <p className="text-gray-400 text-sm">We&apos;d love to hear from you.</p>
             </div>
 
             <form className="grid gap-5" onSubmit={handleSubmit} noValidate>
@@ -112,7 +112,7 @@ const ContactDialog = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
           <motion.div className="flex flex-col items-center justify-center py-8 text-center">
             <CheckCircle className="h-16 w-16 text-green-500 mb-4" />
             <h3 className="text-2xl font-bold text-green-400">Message Sent!</h3>
-            <p className="text-gray-400 text-sm max-w-xs">Thank you for reaching out. We'll get back to you soon.</p>
+            <p className="text-gray-400 text-sm max-w-xs">Thank you for reaching out. We&apos;ll get back to you soon.</p>
           </motion.div>
         )}
       </DialogContent>

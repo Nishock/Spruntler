@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // ✅ Load Firebase Admin SDK
-import serviceAccount from "@/firebase-admin-sdk.json";
+import serviceAccount from "../../../firebase-admin-sdk.json.json";
 
 // ✅ Initialize Firebase (Only Once)
 if (!admin.apps.length) {

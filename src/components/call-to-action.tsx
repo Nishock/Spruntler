@@ -6,10 +6,9 @@ import type React from "react"
 import { ActionButton } from "@/components/action-button"
 import BackgroundStars from "@/assets/stars.png"
 import BackgroundGrid from "@/assets/grid-lines.png"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import ContactDialog from "./ContactDialog";
 import { motion, useMotionTemplate, useMotionValue, useScroll, useTransform } from "framer-motion"
 import { type RefObject, useEffect, useRef, useState } from "react"
-import { CheckCircle } from "lucide-react"
 
 // Custom Hook for Relative Mouse Position
 const useRelativeMousePosition = (to: RefObject<HTMLElement>) => {
@@ -69,107 +68,7 @@ export function CallToAction() {
   return (
     <section className="py-10 md:py-12" ref={sectionRef}>
       <div className="container">
-        <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
-          <DialogContent>
-            {!messageSent ? (
-              <>
-                <div className="text-center mb-5">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-                    Contact Us
-                  </h3>
-                  <p className="text-sm md:text-base text-white/70">We&apos;d love to hear from you.</p>
-                </div>
-
-                <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit} noValidate>
-                  <div className="space-y-4">
-                    <div className="relative">
-                      <input
-                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                        type="text"
-                        name="name"
-                        placeholder="Full Name"
-                        required
-                      />
-                    </div>
-
-                    <div className="relative">
-                      <input
-                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        required
-                      />
-                    </div>
-
-                    <div className="relative">
-                      <input
-                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                        type="text"
-                        name="Mobile No."
-                        placeholder="Contact No."
-                        required
-                      />
-                    </div>
-
-                    <div className="relative">
-                      <textarea
-                        className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none p-3 text-sm transition-colors duration-300"
-                        name="message"
-                        placeholder="Your Message"
-                        rows={3}
-                        required
-                      ></textarea>
-                    </div>
-                  </div>
-
-                  <div className="mt-2">
-                    <button
-                      type="submit"
-                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 text-sm shadow-lg shadow-blue-500/20"
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </form>
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center py-6 text-center">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  className="rounded-full bg-green-500/20 p-3 mb-4"
-                >
-                  <CheckCircle className="h-10 w-10 text-green-500" />
-                </motion.div>
-                <motion.h3
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.1 }}
-                  className="text-xl font-bold mb-2"
-                >
-                  Message Sent!
-                </motion.h3>
-                <motion.p
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-white/70 text-sm max-w-xs"
-                >
-                  Thank you for reaching out. We'll get back to you as soon as possible.
-                </motion.p>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-5 text-xs text-white/50"
-                >
-                  Closing automatically...
-                </motion.div>
-              </div>
-            )}
-          </DialogContent>
-        </Dialog>
+        
 
         <motion.div
           animate={{ backgroundPositionX: BackgroundStars.width }}
@@ -199,6 +98,8 @@ export function CallToAction() {
           </div>
         </motion.div>
       </div>
+      <ContactDialog isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+
     </section>
   )
 }

@@ -7,7 +7,9 @@ import { MenuIcon, CheckCircle } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState, useEffect } from "react";
 import { ActionButton } from "@/components/action-button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import ContactDialog from "./ContactDialog";
+
+
 
 export default function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,68 +83,10 @@ export default function SiteHeader() {
 
           {/* Mobile Navigation */}
           <section className="flex max-md:gap-4 items-center">
-            <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />
+          <ActionButton label="Contact Us" onClick={() => setIsContactOpen(true)} />
 
-            {/* Contact Form Dialog */}
-            <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
-              <DialogContent>
-                {!messageSent ? (
-                  <>
-                    <div className="text-center mb-5">
-                      <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">
-                        Contact Us
-                      </h3>
-                      <p className="text-sm md:text-base text-white/70">
-                        We&apos;d love to hear from you.
-                      </p>
-                    </div>
 
-                    <form className="grid grid-cols-1 gap-4" onSubmit={handleSubmit} noValidate>
-                      <div className="space-y-4">
-                        <div className="relative">
-                          <input className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                            type="text" name="name" placeholder="Full Name" required />
-                        </div>
-
-                        <div className="relative">
-                          <input className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                            type="email" name="email" placeholder="Email" required />
-                        </div>
-
-                        <div className="relative">
-                          <input className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none py-2 px-3 text-sm transition-colors duration-300"
-                            type="text" name="Mobile No." placeholder="Contact No." required />
-                        </div>
-
-                        <div className="relative">
-                          <textarea className="w-full bg-black/40 border border-white/10 rounded-lg placeholder:text-white/40 text-white focus:border-blue-500 focus:outline-none p-3 text-sm transition-colors duration-300"
-                            name="message" placeholder="Your Message" rows={3} required></textarea>
-                        </div>
-                      </div>
-
-                      <div className="mt-2">
-                        <button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-300 text-sm shadow-lg shadow-blue-500/20">
-                          Send Message
-                        </button>
-                      </div>
-                    </form>
-                  </>
-                ) : (
-                  <div className="flex flex-col items-center justify-center py-6 text-center">
-                    <div className="rounded-full bg-green-500/20 p-3 mb-4">
-                      <CheckCircle className="h-10 w-10 text-green-500" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
-                    <p className="text-white/70 text-sm max-w-xs">
-                      Thank you for reaching out. We&apos;ll get back to you as soon as possible.
-                    </p>
-                    <div className="mt-5 text-xs text-white/50">
-                      Closing automatically...
-                    </div>
-                  </div>
-                )}
-              </DialogContent>
-            </Dialog>
+            
 
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -166,6 +110,8 @@ export default function SiteHeader() {
           </section>
         </div>
       </div>
+      <ContactDialog isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+
     </header>
   );
 }

@@ -9,8 +9,8 @@ export default function MarketingSection() {
 
         {/* Subheading */}
         <p className="text-center text-lg md:text-xl mb-12 max-w-3xl mx-auto">
-          We&apos; ve helped businesses scale, brands shine, and marketing budgets
-          actually work. Don&apos; t just take our word for it—here&apos; s proof:
+          We&apos;ve helped businesses scale, brands shine, and marketing budgets
+          actually work. Don&apos;t just take our word for it—here&apos;s proof:
         </p>
 
         {/* Stats section */}

@@ -46,7 +46,7 @@ const StoryItem: React.FC<StoryItemProps> = ({ item, index }) => {
           alt={title}
           width={300}
           height={300}
-          className="w-40 h-auto mx-auto md:mx-100 rounded-2xl shadow-lg hover:opacity-90 transition-opacity duration-300"
+          className="w-40 h-auto mx-auto md:mx-100  rounded-2xl shadow-lg hover:opacity-90 transition-opacity duration-300" style={{ marginLeft: '8.5rem' }}
         />
       </div>
     </div>
@@ -63,7 +63,7 @@ export const AboutUs = () => {
       className="py-14 md:py-24 text-white bg-black"
     >
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-bold mb-6 bg-[radial-gradient(100%_100%_at_top_left,white,white,rgba(77,64,239,0.5))] bg-clip-text text-transparent">
+        <h2 className="text-5xl font-bold mb-6 bg-[radial-gradient(100%_100%_at_top_left,white,white,rgba(77,64,239,0.5))] bg-clip-text text-transparent leading-[2] md:leading-[2]">
           Spruntler: The Marketing Avengers.
         </h2>
         <p className="text-xl opacity-80 mb-12 text-white/70">

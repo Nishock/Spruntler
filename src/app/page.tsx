@@ -7,13 +7,11 @@ import SiteFooter from "@/components/site-footer";
 import { CallToAction } from "@/components/call-to-action";
 import  Market  from "@/components/MarketingThatWorks";
 import  ClientSuccess  from "@/components/ClientSuccess";
-import SplashCursor from './SplashCursor'
 import { Testimonials } from "@/components/testimonials";
 
 export default function Home() {
     return (
         <>
-            <SplashCursor />        
             <SiteHeader />
             <HeroSection />
             {/* <LogoTicker /> */}

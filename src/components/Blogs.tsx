@@ -78,7 +78,7 @@ const Blogs = () => {
     <section className="py-16 md:py-24 text-white overflow-hidden">
       <div className="container px-8 md:px-24 mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent leading-[2] md:leading-[2]">
             Spruntler Scoop: Marketing That Hits Different!
           </h2>
           <p className="text-lg font-medium opacity-80 lg:px-12">

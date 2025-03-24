@@ -46,7 +46,7 @@ const Master = () => {
 
       <div className="container px-6 md:px-10 mx-auto">
       <div className="container mx-auto px-4 text-center">
-        <h2 className="text-5xl font-bold mb-6 bg-[radial-gradient(100%_100%_at_top_left,white,white,rgba(77,64,239,0.5))] bg-clip-text text-transparent">
+        <h2 className="text-5xl font-bold mb-6 bg-[radial-gradient(100%_100%_at_top_left,white,white,rgba(77,64,239,0.5))] bg-clip-text text-transparent leading-[2] md:leading-[2]">
         The Visionary Behind Spruntler
         </h2>
         </div>

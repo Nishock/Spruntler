@@ -15,36 +15,41 @@ const MarketingThatWorks = () => {
       title: "Website Design & Development",
       description:
         "Because a good website is like a good date: fast, attractive, and doesn’t crash.",
-      image: "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuv3kQ57Mi4L2TidwOEMYxr7tj91AWBhQNpZFly",
+      image:
+        "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuv3kQ57Mi4L2TidwOEMYxr7tj91AWBhQNpZFly",
     },
     {
       title: "Branding & Identity",
       description:
         "We make your brand so cool even your competitors will double-tap.",
-      image: "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuvyqlmunz9b7hSKwY0q1Je6PpfkmQWvtTAGs2X",
+      image:
+        "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuvyqlmunz9b7hSKwY0q1Je6PpfkmQWvtTAGs2X",
     },
     {
       title: "E-commerce Solutions",
       description:
         "From setting up your online store to making people actually buy stuff.",
-      image: "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvG3sRTyBBhmcKtz2UvyOroljMFeqXkf0D16uV",
+      image:
+        "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvG3sRTyBBhmcKtz2UvyOroljMFeqXkf0D16uV",
     },
     {
       title: "Video Production & Influencer Marketing",
       description: "Because nobody reads anymore.",
-      image: "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvGI3hJyBBhmcKtz2UvyOroljMFeqXkf0D16uV",
+      image:
+        "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvGI3hJyBBhmcKtz2UvyOroljMFeqXkf0D16uV",
     },
     {
       title: "Much More!!!",
       description: "Just cut to the chase and let’s talk business.",
-      image: "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvUlERouToRQgrtHfX2hT87suK43ZzYO1v9PF0",
+      image:
+        "https://2t3690zz96.ufs.sh/f/LisFD3CqijuvUlERouToRQgrtHfX2hT87suK43ZzYO1v9PF0",
     },
   ];
 
   return (
     <div className="max-w-7xl mx-auto p-8 text-center text-white">
       <motion.h1
-        className="text-center text-2xl md:text-5xl font-semibold mb-10 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent"
+        className="text-center text-2xl md:text-5xl font-semibold mb-10 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent leading-[2] md:leading-[2]"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}

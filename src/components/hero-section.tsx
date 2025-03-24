@@ -7,14 +7,19 @@ import ContactDialog from "./ContactDialog";
 
 const HeroSection = () => {
   const [isContactOpen, setIsContactOpen] = useState(false); // State for Dialog
-  const BackgroundStars = "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuv5JnGfkejThxfJzjOcDXKFbYIku81MV9yASQ4";
+  const BackgroundStars =
+    "https://2t3690zz96.ufs.sh/f/LisFD3Cqijuv5JnGfkejThxfJzjOcDXKFbYIku81MV9yASQ4";
 
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
-  const backgroundPositionY = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+  const backgroundPositionY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [-300, 300]
+  );
 
   return (
     <motion.section
@@ -36,23 +41,29 @@ const HeroSection = () => {
 
       {/* Planet */}
       <div className="absolute size-32 md:size-64 lg:size-96 rounded-full border border-white/20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(50%_50%_at_16.8%_18.3%,white,rgba(77,64,239,0.2)_37.7%,rgba(77,64,239,0.3))] shadow-[0_0_30px_rgba(77,64,239,0.8),-10px_-10px_30px_rgba(255,255,255,0.3),-10px_-10px_50px_rgba(255,255,255,0.1)] bg-[rgb(77,64,239)] opacity-40 z-0 filter blur-lg md:blur-xl" />
-      
+
       <div className="container px-8 py-8 mx-auto relative z-10 md:mt-10 lg:-mt-32">
         <div className="grid grid-cols-12 gap-y-8 lg:gap-x-8">
           {/* Text content */}
           <div className="col-span-12 lg:col-span-6 xl:pr-12 flex items-center">
             <div className="flex flex-col justify-center w-full px-4 sm:px-6 md:px-8">
               <h2 className="text-center lg:text-left text-5xl sm:text-5xl md:text-5xl font-bold mb-8 md:mb-16 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-                Where Possibility <br className="hidden md:block" /> Encounters Worth.
+                Where Possibility <br className="hidden md:block" /> Encounters
+                Worth.
               </h2>
               <p className="text-xs md:text-sm leading-relaxed opacity-80 text-white mb-8 max-w-[600px] mx-auto lg:mx-0 text-center lg:text-left">
-                Welcome to Spruntler, where digital marketing meets a touch of magic and a whole lot of strategy. We
-                turn your business from meh to marvelous with innovative, data-driven marketing, stunning websites, and
-                creative content that doesn&apos;t just get seen—it gets results.
+                Welcome to Spruntler, where digital marketing meets a touch of
+                magic and a whole lot of strategy. We turn your business from
+                meh to marvelous with innovative, data-driven marketing,
+                stunning websites, and creative content that doesn&apos;t just
+                get seen—it gets results.
               </p>
 
-              <div className="mt-6 flex justify-left">
-                <ActionButton label="Get in Touch" onClick={() => setIsContactOpen(true)} />
+              <div className="mt-6 flex justify-center sm:justify-start">
+                <ActionButton
+                  label="Get in Touch"
+                  onClick={() => setIsContactOpen(true)}
+                />
               </div>
             </div>
           </div>
@@ -72,7 +83,10 @@ const HeroSection = () => {
       </div>
 
       {/* Contact Dialog - Opens when clicking "Get in Touch" */}
-      <ContactDialog isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
+      <ContactDialog
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
     </motion.section>
   );
 };

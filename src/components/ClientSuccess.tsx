@@ -3,7 +3,7 @@ export default function MarketingSection() {
     <div className="w-full text-white py-12 px-4 md:px-8 lg:px-16">
       <div className="max-w-4xl mx-auto">
         {/* Heading with gradient text */}
-        <h2 className="text-center text-2xl md:text-5xl font-semibold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+        <h2 className="text-center text-2xl md:text-5xl font-semibold mb-6 bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent leading-[2] md:leading-[2]">
           Winning for Our Clients
         </h2>
 

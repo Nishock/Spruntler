@@ -114,6 +114,8 @@ const FaqItem = ({
   </div>
 );
 
+
+
 // Main Page Component
 export default function ServicesPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);

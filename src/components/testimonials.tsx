@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { faArrowRight, faCalendarAlt, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // -------------------------
 // Testimonials Data
@@ -70,10 +72,16 @@ const faqList = [
 ];
 
 // -------------------------
-// FAQ Item Component with + / -
+// FAQ Item Component with Animation
 // -------------------------
 
-function FaqItem({ faq, isOpen, onClick }) {
+type FaqItemProps = {
+  faq: { question: string; answer: string };
+  isOpen: boolean;
+  onClick: () => void;
+};
+
+function FaqItem({ faq, isOpen, onClick }: FaqItemProps) {
   return (
     <div
       onClick={onClick}
@@ -81,11 +89,29 @@ function FaqItem({ faq, isOpen, onClick }) {
     >
       <div className="flex justify-between items-center">
         <h3 className="text-lg font-semibold">{faq.question}</h3>
-        <span className="text-xl font-bold">
-          {isOpen ? "-" : "+"}
-        </span>
+        <motion.span
+          className="text-xl font-bold"
+          initial={{ rotate: 0 }}
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <FontAwesomeIcon icon={isOpen ? faMinus : faPlus} />
+        </motion.span>
       </div>
-      {isOpen && <p className="text-gray-400 mt-2">{faq.answer}</p>}
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.p
+            className="text-gray-400 mt-2"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {faq.answer}
+          </motion.p>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -96,9 +122,9 @@ function FaqItem({ faq, isOpen, onClick }) {
 
 export function Testimonials() {
   const router = useRouter();
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const handleFaqClick = (index) => {
+  const handleFaqClick = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 

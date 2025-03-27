@@ -3,9 +3,9 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
+// ------------------- Testimonial Data ------------------
 const testimonials = [
   {
     text: '"Social Media Marketing Secrets: How to Build a Powerful Online Presence"',
@@ -29,6 +29,7 @@ const testimonials = [
   },
 ];
 
+// ------------------- FAQ Data ------------------
 const faqList = [
   {
     question: "What services does Spruntler offer?",
@@ -62,7 +63,15 @@ const faqList = [
   },
 ];
 
-function FaqItem({ faq, isOpen, onClick }) {
+// ------------------- Types ------------------
+type FaqItemProps = {
+  faq: { question: string; answer: string };
+  isOpen: boolean;
+  onClick: () => void;
+};
+
+// ------------------- FAQ Item Component ------------------
+function FaqItem({ faq, isOpen, onClick }: FaqItemProps) {
   return (
     <div
       onClick={onClick}
@@ -74,17 +83,18 @@ function FaqItem({ faq, isOpen, onClick }) {
   );
 }
 
+// ------------------- Main Component ------------------
 export function Testimonials() {
   const router = useRouter();
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const handleFaqClick = (index) => {
+  const handleFaqClick = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
     <>
-      {/* Testimonials Section */}
+      {/* ------------------ Testimonials Section ------------------ */}
       <section
         className="py-20 md:py-24 cursor-pointer"
         onClick={() => router.push("/blogs")}
@@ -138,7 +148,7 @@ export function Testimonials() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* ------------------ FAQ Section ------------------ */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">

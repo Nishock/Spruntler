@@ -2,10 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-// ------------------- Testimonial Data ------------------
+// -------------------------
+// Testimonials Data
+// -------------------------
+
 const testimonials = [
   {
     text: '"Social Media Marketing Secrets: How to Build a Powerful Online Presence"',
@@ -29,7 +32,10 @@ const testimonials = [
   },
 ];
 
-// ------------------- FAQ Data ------------------
+// -------------------------
+// FAQ Data
+// -------------------------
+
 const faqList = [
   {
     question: "What services does Spruntler offer?",
@@ -63,38 +69,42 @@ const faqList = [
   },
 ];
 
-// ------------------- Types ------------------
-type FaqItemProps = {
-  faq: { question: string; answer: string };
-  isOpen: boolean;
-  onClick: () => void;
-};
+// -------------------------
+// FAQ Item Component with + / -
+// -------------------------
 
-// ------------------- FAQ Item Component ------------------
-function FaqItem({ faq, isOpen, onClick }: FaqItemProps) {
+function FaqItem({ faq, isOpen, onClick }) {
   return (
     <div
       onClick={onClick}
-      className="border border-muted rounded-xl p-5 cursor-pointer transition-all hover:shadow-lg bg-white/5"
+      className="border border-muted p-5 rounded-xl bg-zinc-900 cursor-pointer hover:bg-zinc-800 transition"
     >
-      <h3 className="text-xl font-semibold">{faq.question}</h3>
-      {isOpen && <p className="mt-2 text-gray-400">{faq.answer}</p>}
+      <div className="flex justify-between items-center">
+        <h3 className="text-lg font-semibold">{faq.question}</h3>
+        <span className="text-xl font-bold">
+          {isOpen ? "-" : "+"}
+        </span>
+      </div>
+      {isOpen && <p className="text-gray-400 mt-2">{faq.answer}</p>}
     </div>
   );
 }
 
-// ------------------- Main Component ------------------
+// -------------------------
+// Main Component
+// -------------------------
+
 export function Testimonials() {
   const router = useRouter();
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState(null);
 
-  const handleFaqClick = (index: number) => {
+  const handleFaqClick = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
     <>
-      {/* ------------------ Testimonials Section ------------------ */}
+      {/* Testimonials Section */}
       <section
         className="py-20 md:py-24 cursor-pointer"
         onClick={() => router.push("/blogs")}
@@ -130,7 +140,7 @@ export function Testimonials() {
                   <div className="flex items-center gap-3 mt-5">
                     <div className="relative">
                       <Image
-                        src={testimonial.avatarImg || "/placeholder.svg"}
+                        src={testimonial.avatarImg}
                         alt={testimonial.name}
                         width={44}
                         height={44}
@@ -148,7 +158,7 @@ export function Testimonials() {
         </div>
       </section>
 
-      {/* ------------------ FAQ Section ------------------ */}
+      {/* FAQ Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-16">

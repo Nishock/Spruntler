@@ -8,12 +8,12 @@ import { CallToAction } from "@/components/call-to-action";
 import  Market  from "@/components/MarketingThatWorks";
 import  ClientSuccess  from "@/components/ClientSuccess";
 import { Testimonials } from "@/components/testimonials";
-import { Analytics } from "@vercel/analytics/react"
+
 
 export default function Home() {
     return (
         <>|
-             <Analytics/>   
+            
             <SiteHeader />
             <HeroSection />
             {/* <LogoTicker /> */}
